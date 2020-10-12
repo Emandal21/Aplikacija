@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>749816744203-gjfg08kh08tuorc8oundm9q4nmcq08v3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.749816744203-gjfg08kh08tuorc8oundm9q4nmcq08v3</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCXT0VDQgkKyrUw43epq55fUH-Ap7GNrbw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>749816744203</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.aplikacija</string>
+	<key>PROJECT_ID</key>
+	<string>aplikacija-6149a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>aplikacija-6149a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:749816744203:ios:3dd97f2a4a68b362a0fa0e</string>
+	<key>DATABASE_URL</key>
+	<string>https://aplikacija-6149a.firebaseio.com</string>
+</dict>
+</plist>

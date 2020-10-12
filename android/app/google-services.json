@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "749816744203",
+    "firebase_url": "https://aplikacija-6149a.firebaseio.com",
+    "project_id": "aplikacija-6149a",
+    "storage_bucket": "aplikacija-6149a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749816744203:android:c425e8aa9073a190a0fa0e",
+        "android_client_info": {
+          "package_name": "com.example.aplikacija"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749816744203-jr8lpjv317l9ik9pod7ftlccg50p7rvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCElut8YO_ltVZfsefOMuMr4roTeasPOFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749816744203-jr8lpjv317l9ik9pod7ftlccg50p7rvj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "749816744203-gjfg08kh08tuorc8oundm9q4nmcq08v3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.aplikacija"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-7485800864788632~8878684724"
+    }
+  ],
+  "configuration_version": "1"
+}
