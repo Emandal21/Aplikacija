@@ -11,7 +11,9 @@ import 'package:aplikacija/components/ad_part.dart';
 import 'package:aplikacija/components/admob_advertising.dart';
 import 'package:admob_flutter/admob_flutter.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MaterialApp(
       // lokalizacija
@@ -52,8 +54,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
    // print('loadeeeed');
     super.initState();
-    Admob.initialize();
-    Firebase.initializeApp(); //povezivanje na bazu
+    Admob.initialize();//povezivanje na bazu
   }
 
 
