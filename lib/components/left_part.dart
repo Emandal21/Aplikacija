@@ -1,14 +1,11 @@
-import 'package:aplikacija/main.dart';
 import 'package:aplikacija/pages/subcategories_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aplikacija/localization/demo_localization.dart';
-import 'package:aplikacija/pages/subcategories_page.dart' as sp;
-import 'dart:convert';
-import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
 
 class LeftPart extends StatelessWidget {
+  final dbCategories;
+  LeftPart({this.dbCategories});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +16,8 @@ class LeftPart extends StatelessWidget {
           Category(
             image_location: new Icon(
                 Icons.home, size: 19.0, color: Colors.white),
-                image_caption: DemoLocalization.of(context).getTranslatedValue('cat_stanovanje'),
+                image_caption: DemoLocalization.of(context).getTranslatedValue('cat_stanovanje'), //value od ovoga se nalazi u lang/bs.json
+            //image_caption: dbCategories[0],
           ),
           Category(
             image_location: new Icon(
@@ -86,32 +84,11 @@ class Category extends StatelessWidget {
     this.image_caption
   });
 
-  static String _jsonString;
-  static List _decoded;
-  static int len;
-
-  Future<String> _loadJson(category) async {
-    return await rootBundle.loadString('lib/subcategories/$category.json');
-  }
-
-  Future loadJson(category) async {
-    _jsonString = await _loadJson(category);
-    //print("load");
-    _parseJson(_jsonString);
-    len = _decoded.length;
-    print(len);
-  }
-  void _parseJson(String jsonString) {
-    _decoded = jsonDecode(jsonString);
-    print("parse");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
         child: InkWell(onTap: (){
-          loadJson(image_caption);
-          Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new SubcategoriesGrid(category: image_caption, gridList: _decoded, listLength: len,)));
+          Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new SubcategoriesGrid(category: image_caption)));
         },
 
 

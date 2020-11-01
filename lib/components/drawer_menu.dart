@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:aplikacija/localization/demo_localization.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_admob/firebase_admob.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 
 
 class AppDrawer extends StatelessWidget {
-  List<Oglas> dbData=[];
-  final firestoreInstance = FirebaseFirestore.instance;
+ // List<Oglas> dbData;
+ // final firestoreInstance = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +26,17 @@ class AppDrawer extends StatelessWidget {
     }
 
     // retrievanje podataka iz baze
+    // void loadDbData() {
+    //   firestoreInstance.collection("Oglasi").get().then((querySnapshot) => {
+    //     querySnapshot.docs.forEach((result) {
+    //       print('petlja');
+    //       print(result['Content'] + result['Title']);
+    //       dbData.add(Oglas(result['Title'], result['Content'])); //title i content su kljucevi iz baze
+    //       print(dbData.length);
+    //     })
+    //   });
+    // }
 
-    firestoreInstance.collection("Oglasi").get().then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-        // print('petlja');
-        // print(result['Content'] + result['Title']);
-        dbData.add(Oglas(result['Title'], result['Content'])); //title i content su kljucevi iz baze
-        print(dbData.length);
-      });
-    });
 
     _launchURL() async {
       const url = 'https://www.brutto-netto-rechner.info/';
@@ -77,7 +78,8 @@ class AppDrawer extends StatelessWidget {
             )
         ),
           InkWell(onTap: (){
-            Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new DBListPage(dbData: dbData,)));
+           // loadDbData();
+            Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new DBListPage()));
           },
               child: Container(
                 width: 110.0,

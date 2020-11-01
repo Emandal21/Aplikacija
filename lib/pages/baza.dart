@@ -1,5 +1,9 @@
 import 'dart:core';
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:aplikacija/components/left_part.dart';
+import 'package:aplikacija/components/search.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aplikacija/localization/demo_localization.dart';
@@ -7,19 +11,36 @@ import 'package:aplikacija/components/drawer_menu.dart';
 
 
 class DBListPage extends StatefulWidget {
-  final List<Oglas> dbData;
 
-  DBListPage({this.dbData});
   @override
   _DBListPageState createState() => _DBListPageState();
 }
 
-class _DBListPageState extends State<DBListPage> {
+class _DBListPageState extends State<DBListPage> with WidgetsBindingObserver{
   GlobalKey<ScaffoldState> _scaffoldKey3 = GlobalKey<ScaffoldState>();
-
+  AdmobInterstitial interstAd;
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) { //provjeravamo da li se aplikacija vratila iz backgrounda
+    if (state == AppLifecycleState.resumed) {
+      if (interstAd.isLoaded != null) {
+        interstAd.show();
+      }
+    }
+  }
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    Admob.initialize();//povezivanje na bazu
+    interstAd = AdmobInterstitial(
+      adUnitId: InterstitialAd.testAdUnitId,
+    );
+    interstAd.load();
+  }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -39,7 +60,9 @@ class _DBListPageState extends State<DBListPage> {
             },
           ),
           actions: <Widget>[
-            new IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: (){})
+            new IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: (){
+              showSearch(context: context, delegate: DataSearch());
+            })
           ]
 
       ),
@@ -72,18 +95,41 @@ class _DBListPageState extends State<DBListPage> {
                                   decoration: BoxDecoration(borderRadius:BorderRadius.circular(20), color: Color(0xff002c3e))
                               )),
                           Expanded(
-                              child: widget.dbData.length == 0 ?  new Text('Nema podataka u bazi'): //u slucaju da je baza prazna
-                              ListView.builder(
-                                itemCount: widget.dbData.length,
-                                itemBuilder: (context, i) {
-                                  return new ExpansionTile(
-                                    title: new Text(widget.dbData[i].title, style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
-                                    children: <Widget>[
-                                      new Text((widget.dbData[i].content), style: new TextStyle(fontSize: 18.0,),),
-                                    ],
-                                  );
-                                },
-                              ),
+                                  child: StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance.collection("Oglasi").snapshots(), //povezivanje na kolekciju iz baze
+                                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> querySnapshot){
+                                      if(querySnapshot.hasError)
+                                        return Text("Greska u bazi");
+                                      if(querySnapshot.connectionState == ConnectionState.waiting) {
+                                        return CircularProgressIndicator();
+                                      }
+                                      else {
+                                        final dbDataList = querySnapshot.data.docs;
+                                        return ListView.builder(
+                                          itemCount: dbDataList.length,
+                                          itemBuilder: (context, i) {
+                                            return new ExpansionTile(
+                                              title: new Text(dbDataList[i]["Title"], style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+                                              children: <Widget>[
+                                                new Text((dbDataList[i]["Content"]), style: new TextStyle(fontSize: 18.0,),),
+                                              ],
+                                            );
+                                            },);
+                                      }
+                                    }
+                                  )
+                              // child: widget.dbData.length == 0 ?  new Text('Nema podataka u bazi'): //u slucaju da je baza prazna
+                              // ListView.builder(
+                              //   itemCount: widget.dbData.length,
+                              //   itemBuilder: (context, i) {
+                              //     return new ExpansionTile(
+                              //       title: new Text(widget.dbData[i].title, style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+                              //       children: <Widget>[
+                              //         new Text((widget.dbData[i].content), style: new TextStyle(fontSize: 18.0,),),
+                              //       ],
+                              //     );
+                              //   },
+                              // ),
                           )
                         ]
                     ))

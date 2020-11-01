@@ -59,11 +59,6 @@ flutter:
   assets:
     - lib/lang/bs.json
     - lib/lang/de.json
-    - slike/slika1.jpg
-    - slike/slika2.jpg
-    - lib/subcategories/Stanovanje.json
-    - lib/subcategories/Finansije.json
-    - lib/subcategoriesDetails/Krediti.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
